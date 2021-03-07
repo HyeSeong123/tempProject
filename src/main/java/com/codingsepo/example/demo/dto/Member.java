@@ -4,16 +4,17 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
-public class Article {
+public class Member {
 	private int num;
 	private String regDate;
 	private String updateDate;
-	private int memberNum;
-	private String title;
-	private String body;
-	
-	private String extra__writer;
+	private String loginId;
+	private String loginPw;
+	private String name;
+	private String nickname;
+	private String hpNum;
+	private String email;
 }
