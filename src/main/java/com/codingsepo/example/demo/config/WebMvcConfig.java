@@ -14,6 +14,10 @@ public class WebMvcConfig implements WebMvcConfigurer{
 	HandlerInterceptor beforeActionInterceptor;
 
 	@Autowired
+	@Qualifier("needToAdminInterceptor")
+	HandlerInterceptor needToAdminInterceptor;
+	
+	@Autowired
 	@Qualifier("needToLoginInterceptor")
 	HandlerInterceptor needToLoginInterceptor;
 
@@ -27,17 +31,28 @@ public class WebMvcConfig implements WebMvcConfigurer{
 	public void addInterceptors(InterceptorRegistry registry) {
 		// beforeActionInterceptor 인터셉터가 모든 액션 실행전에 실행되도록 처리
 		registry.addInterceptor(beforeActionInterceptor).addPathPatterns("/**").excludePathPatterns("/resource/**");
+		
+		// 어드민 필요
+		registry.addInterceptor(needToAdminInterceptor)
+		.addPathPatterns("/adm/**")
+		.excludePathPatterns("/adm/member/login")
+		.excludePathPatterns("/adm/member/doLogin");
+		
+		// 로그인 필요
 		registry.addInterceptor(needToLoginInterceptor)
 		.addPathPatterns("/**")
-		.excludePathPatterns("/")
+		.excludePathPatterns("/")		
+		.excludePathPatterns("/adm/**")
 		.excludePathPatterns("/resource/**")
 		.excludePathPatterns("/usr/home/main")
+		.excludePathPatterns("/usr/member/authKey")
 		.excludePathPatterns("/usr/member/login")
 		.excludePathPatterns("/usr/member/doLogin")
 		.excludePathPatterns("/usr/member/join")
 		.excludePathPatterns("/usr/member/doJoin")
 		.excludePathPatterns("/usr/article/list")
 		.excludePathPatterns("/usr/article/detail")
+		.excludePathPatterns("/usr/reply/list")
 		.excludePathPatterns("/usr/member/findLoginId")
 		.excludePathPatterns("/usr/member/doFindLoginId")
 		.excludePathPatterns("/usr/member/findLoginPw")
@@ -49,6 +64,8 @@ public class WebMvcConfig implements WebMvcConfigurer{
 
 	// 로그인 상태에서 접속할 수 없는 URI 전부 기술
 	registry.addInterceptor(needToLogoutInterceptor)
+	.addPathPatterns("/adm/member/login")
+    .addPathPatterns("/adm/member/doLogin")
 		.addPathPatterns("/usr/member/login")
 		.addPathPatterns("/usr/member/doLogin")
 		.addPathPatterns("/usr/member/join")

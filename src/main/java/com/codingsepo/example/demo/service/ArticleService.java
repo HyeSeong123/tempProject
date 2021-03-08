@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.codingsepo.example.demo.dao.ArticleDao;
 import com.codingsepo.example.demo.dto.Article;
+import com.codingsepo.example.demo.dto.Board;
 import com.codingsepo.example.demo.dto.ResultData;
 import com.codingsepo.example.demo.util.Util;
 
@@ -28,8 +29,12 @@ public class ArticleService {
 		return articleDao.getArticles(searchKeywordType, searchKeyword);
 	}
 	
-	public List<Article> getForPrintArticles(String searchKeywordType, String searchKeyword) {
-		return articleDao.getForPrintArticles(searchKeywordType,searchKeyword);
+	public List<Article> getForPrintArticles(int boardNum, String searchKeywordType, String searchKeyword, int page, int itemsInAPage) {
+		
+		int limitStart = (page -1) * itemsInAPage;
+		int limitTake = itemsInAPage;
+		
+		return articleDao.getForPrintArticles(boardNum, searchKeywordType,searchKeyword, limitStart , limitTake);
 	}
 	
 	public ResultData addArticle(Map<String,Object> param) {
@@ -72,6 +77,10 @@ public class ArticleService {
 
 	public Article getForPrintArticle(int num) {
 		return articleDao.getForPrintArticle(num);
+	}
+
+	public Board getBoardByByNum(int boardNum) {
+		return articleDao.getBoardByNum(boardNum);
 	}
 
 }

@@ -40,4 +40,12 @@ public class MemberService {
 	public boolean isAdmin(int actorNum) {
 		return actorNum == 1;
 	}
+
+	public boolean isAdmin(Member actor) {
+		return isAdmin(actor.getNum());
+	}
+
+	public Member getMemberByAuthKey(String authKey) {
+		return memberDao.getMemberByAuthkey(authKey);
+	}
 }

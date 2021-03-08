@@ -13,10 +13,13 @@
 	
 	<select id="getForPrintArticle" resultType="Article">
 		SELECT *,
-		IFNULL(M.nickname, "탈퇴회원") AS extra__writer
+		IFNULL(M.nickname, "탈퇴회원") AS extra__writer,
+		B.name AS extra__board
 		FROM article AS A
 		LEFT JOIN `member` AS M
-		ON A.memberNum = M.num 
+		ON A.memberNum = M.num
+		LEFT JOIN `board` AS B
+		ON A.boardNum = B.num 
 		WHERE A.num = #{num}
 	</select>
 	
@@ -41,15 +44,23 @@
 		</if>
 		
 		ORDER BY num DESC
+		
 	</select>
 
 	<select id="getForPrintArticles" resultType="Article">
 		SELECT A.*,
-		M.nickname AS extra__writer
+		M.nickname AS extra__writer,
+		B.name AS extra__board
 		FROM article AS A
 		LEFT JOIN `member` AS M
 		ON A.memberNum = M.num
+		LEFT JOIN `board` AS B
+		ON A.boardNum = B.num
 		WHERE 1
+		
+		<if test="boardNum != null">
+			AND A.boardNum = #{boardNum}
+		</if>
 		
 		<if test="searchKeywordType == 'title'">
 			AND title LIKE CONCAT ('%', #{searchKeyword} , '%')
@@ -64,6 +75,11 @@
 		</if>
 		
 		ORDER BY num DESC
+		
+		<if test= "limitStart != null and limitTake != null">
+			LIMIT #{limitStart}, #{limitTake}
+		</if>
+		
 	</select>
 	
 	<insert id="addArticle" useGeneratedKeys="true" keyProperty="num">
@@ -72,7 +88,8 @@
 		updateDate = NOW(),
 		title = #{title},
 		`body` = #{body},
-		`memberNum` = #{memberNum}
+		`memberNum` = #{memberNum},
+		`boardNum` = #{boardNum}
 	</insert>
 
 	<delete id="deleteArticle">
@@ -84,7 +101,7 @@
 		UPDATE article
 		<set>
 		
-			<if test="title != null || body != null">
+			<if test="title != null or body != null">
 				updateDate = NOW(),
 			</if>
 			
@@ -99,5 +116,11 @@
 		</set>
 		WHERE num = #{num}
 	</update>
+	
+		<select id="getBoardByNum" resultType="Board">
+		SELECT *
+		FROM board
+		WHERE num = #{num}
+	</select>
 
 </mapper>

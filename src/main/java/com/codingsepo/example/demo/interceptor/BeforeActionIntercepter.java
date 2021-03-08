@@ -12,28 +12,44 @@ import com.codingsepo.example.demo.dto.Member;
 import com.codingsepo.example.demo.service.MemberService;
 
 @Component("beforeActionInterceptor")
-public class BeforeActionIntercepter implements HandlerInterceptor{
+public class BeforeActionIntercepter implements HandlerInterceptor {
 	@Autowired
 	private MemberService memberService;
-	
+
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 
-		System.out.println("실행되나?");
-
-		HttpSession session = request.getSession();
-
-		// 로그인 여부에 관련된 정보를 request에 담는다.
-		boolean isLogined = false;
-		boolean isAdmin = false;
 		int loginedMemberNum = 0;
 		Member loginedMember = null;
 
-		if (session.getAttribute("loginedMemberNum") != null) {
-			loginedMemberNum = (int) session.getAttribute("loginedMemberNum");
+		String authKey = request.getParameter("authKey");
+		
+		if (authKey != null && authKey.length() > 0) {
+			loginedMember = memberService.getMemberByAuthKey(authKey);
+
+			if (loginedMember == null) {
+				request.setAttribute("authKeyStatus", "invalid");
+			} else {
+				request.setAttribute("authKeyStatus", "valid");
+				loginedMemberNum = loginedMember.getNum();
+
+			}
+		} else {
+			HttpSession session = request.getSession();
+			request.setAttribute("authKeyStatus", "none");
+
+			if (session.getAttribute("loginedMemberNum") != null) {
+				loginedMemberNum = (int) session.getAttribute("loginedMemberNum");
+				loginedMember = memberService.getMemberByNum(loginedMemberNum);
+			}
+		}
+		// 로그인 여부에 관련된 정보를 request에 담는다.
+		boolean isLogined = false;
+		boolean isAdmin = false;
+
+		if (loginedMember != null) {
 			isLogined = true;
-			loginedMember = memberService.getMemberByNum(loginedMemberNum);
 			isAdmin = memberService.isAdmin(loginedMemberNum);
 		}
 

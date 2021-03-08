@@ -11,6 +11,7 @@ CREATE TABLE article(
 );
 
 ALTER TABLE article ADD COLUMN memberNum INT(10) UNSIGNED NOT NULL AFTER updateDate
+ALTER TABLE article ADD COLUMN boardNum INT(10) UNSIGNED NOT NULL AFTER memberNum
 
 INSERT INTO article
     SET regDate= NOW(),
@@ -27,6 +28,10 @@ INSERT INTO article
 UPDATE article
 SET memberNum = 1
 WHERE memberNum = 0
+
+UPDATE article
+SET boardNum = 1
+WHERE boardNum = 0
     
 CREATE TABLE `member`(
     num INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -52,4 +57,67 @@ nickname = "user1",
 hpNum = "01012341234",
 email = "banggu1997@gmail.com";
 
-SET updateDate = NOW(), NAME = 'Mtest1' WHERE num = 2
+ALTER TABLE `member` ADD COLUMN authKey CHAR(130) NOT NULL AFTER loginPw;
+
+# 기존 회원의 authKey 데이터 채우기
+UPDATE `member`
+SET authKey = CONCAT("authKey1__", UUID(), "__", RAND())
+WHERE authKey = '';
+
+SET authKey = 'authKey1__1'
+WHERE id = 1;
+
+UPDATE `member`
+SET authKey = 'authKey1__2'
+WHERE id = 2;
+
+UPDATE `member`
+SET authKey = 'authKey1__3'
+WHERE id = 3;
+
+UPDATE `member`
+SET authKey = 'authKey1__4'
+WHERE id = 4;
+
+# authKey 칼럼에 유니크 인덱스 추가
+ALTER TABLE `member` ADD UNIQUE INDEX (`authKey`);
+
+CREATE TABLE board(
+    num INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    regDate DATETIME NOT NULL,
+    updateDate DATETIME NOT NULL,
+    `name` CHAR(30) UNIQUE NOT NULL,
+    `code` CHAR(20) UNIQUE NOT NULL
+);
+
+INSERT INTO board
+    SET regDate = NOW(),
+    updateDate = NOW(),
+    `name` = '공지사항',
+    `code` = 'notice'
+    
+INSERT INTO board
+    SET regDate = NOW(),
+    updateDate = NOW(),
+    `name` = '자유게시판',
+    `code` = 'free'
+    
+CREATE TABLE reply(
+    num INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    regDate DATETIME NOT NULL,
+    updateDate DATETIME NOT NULL,
+    memberNum INT(10) UNSIGNED NOT NULL,
+    relNum INT(10) UNSIGNED NOT NULL,
+    relTypeCode CHAR(30) NOT NULL,
+    `body` LONGTEXT NOT NULL
+);
+# 고속 검색을 위해 인덱스 걸기
+ALTER TABLE reply ADD KEY (relTypeCode, relNum); 
+ 
+INSERT INTO reply
+    SET regDate = NOW(),
+    updateDate = NOW(),
+    memberNum = 2,
+    relNum = 31,
+    relTypeCode = 'article',
+    `body` = '댓글5'
