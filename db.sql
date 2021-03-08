@@ -57,42 +57,43 @@ nickname = "user1",
 hpNum = "01012341234",
 email = "banggu1997@gmail.com";
 
-ALTER TABLE `member` ADD COLUMN authKey CHAR(130) NOT NULL AFTER loginPw;
+Alter table `member` add column authKey char(130) not null after loginPw;
 
 # 기존 회원의 authKey 데이터 채우기
 UPDATE `member`
 SET authKey = CONCAT("authKey1__", UUID(), "__", RAND())
 WHERE authKey = '';
 
+update `member`
 SET authKey = 'authKey1__1'
-WHERE id = 1;
+WHERE num = 1;
 
 UPDATE `member`
 SET authKey = 'authKey1__2'
-WHERE id = 2;
+WHERE num = 2;
 
 UPDATE `member`
 SET authKey = 'authKey1__3'
-WHERE id = 3;
+WHERE num = 4;
 
 UPDATE `member`
 SET authKey = 'authKey1__4'
-WHERE id = 4;
+WHERE num = 5;
 
 # authKey 칼럼에 유니크 인덱스 추가
 ALTER TABLE `member` ADD UNIQUE INDEX (`authKey`);
 
-CREATE TABLE board(
-    num INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    regDate DATETIME NOT NULL,
-    updateDate DATETIME NOT NULL,
-    `name` CHAR(30) UNIQUE NOT NULL,
-    `code` CHAR(20) UNIQUE NOT NULL
+create table board(
+    num int(10) unsigned not null primary key auto_increment,
+    regDate datetime not null,
+    updateDate datetime not null,
+    `name` char(30) UNIQUE not null,
+    `code` char(20) UNIQUE not null
 );
 
-INSERT INTO board
-    SET regDate = NOW(),
-    updateDate = NOW(),
+insert into board
+    set regDate = now(),
+    updateDate = now(),
     `name` = '공지사항',
     `code` = 'notice'
     
@@ -106,17 +107,17 @@ CREATE TABLE reply(
     num INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
     regDate DATETIME NOT NULL,
     updateDate DATETIME NOT NULL,
-    memberNum INT(10) UNSIGNED NOT NULL,
-    relNum INT(10) UNSIGNED NOT NULL,
-    relTypeCode CHAR(30) NOT NULL,
-    `body` LONGTEXT NOT NULL
+    memberNum int(10) unsigned not null,
+    relNum int(10) unsigned not null,
+    relTypeCode char(30) not null,
+    `body` longtext not null
 );
 # 고속 검색을 위해 인덱스 걸기
 ALTER TABLE reply ADD KEY (relTypeCode, relNum); 
  
-INSERT INTO reply
-    SET regDate = NOW(),
-    updateDate = NOW(),
+insert into reply
+    set regDate = NOW(),
+    updateDate = now(),
     memberNum = 2,
     relNum = 31,
     relTypeCode = 'article',
