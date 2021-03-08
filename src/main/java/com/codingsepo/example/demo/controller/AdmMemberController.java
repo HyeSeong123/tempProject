@@ -28,7 +28,7 @@ public class AdmMemberController {
 	
 	@RequestMapping("/adm/member/doLogin")
 	@ResponseBody
-	public String doLogin(@RequestParam Map<String, Object> param, HttpSession session) {
+	public String doLogin(@RequestParam Map<String, Object> param, HttpSession session, String redirectUrl) {
 		if (session.getAttribute("loginedMemberNum") != null) {
 			return Util.msgAndBack("이미 로그인 상태 입니다."); 
 		};
@@ -59,7 +59,11 @@ public class AdmMemberController {
 		
 		String msg = String.format("%s님의 로그인을 환영합니다.", member.getNickname());
 		
-		return Util.msgAndReplace(msg,"../home/main");
+		if ( redirectUrl == null) {
+			redirectUrl = "../home/main";
+		}
+		
+		return Util.msgAndReplace(msg, redirectUrl);
 	}
 	@RequestMapping("/adm/member/doLogout")
 	@ResponseBody

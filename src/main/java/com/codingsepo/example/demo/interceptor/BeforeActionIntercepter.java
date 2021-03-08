@@ -1,5 +1,7 @@
 package com.codingsepo.example.demo.interceptor;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -10,6 +12,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import com.codingsepo.example.demo.dto.Member;
 import com.codingsepo.example.demo.service.MemberService;
+import com.codingsepo.example.demo.util.Util;
 
 @Component("beforeActionInterceptor")
 public class BeforeActionIntercepter implements HandlerInterceptor {
@@ -19,7 +22,28 @@ public class BeforeActionIntercepter implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
+		
+		Map<String, Object> param = Util.getParamMap(request);
+		String paramJson = Util.toJsonStr(param);
 
+		String requestUrl = request.getRequestURI();
+		String queryString = request.getQueryString();
+
+		if (queryString != null && queryString.length() > 0) {
+			requestUrl += "?" + queryString;
+		}
+
+		String encodedRequestUrl = Util.getUrlEncoded(requestUrl);
+
+		request.setAttribute("requestUrl", requestUrl);
+		request.setAttribute("encodedRequestUrl", encodedRequestUrl);
+
+		request.setAttribute("afterLoginUrl", requestUrl);
+		request.setAttribute("encodedAfterLoginUrl", encodedRequestUrl);
+
+		request.setAttribute("paramMap", param);
+		request.setAttribute("paramJson", paramJson);
+		
 		int loginedMemberNum = 0;
 		Member loginedMember = null;
 
