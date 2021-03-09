@@ -20,4 +20,10 @@ public interface MemberDao {
 
 	Member getMemberByAuthkey(@Param("authKey") String authKey);
 
+	public Member getMemberByName(String name);
+
+	public Member getMemberByNameAndEmail(@Param("name") String name,@Param("email") String email);
+
+	public void doModify(Map<String, Object> modifyParam);
+
 }

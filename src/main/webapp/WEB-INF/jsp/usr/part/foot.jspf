@@ -1,0 +1,47 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+	<footer class="aheto-footer aheto-footer-15">
+		<div class="fluid-container">
+			<div class="aheto-footer-15__bottom">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-3">
+							<div class="img_box">
+								<img src="/resource/img/footer-logo-1.png" alt="">
+
+							</div>
+						</div>
+						<div class="col-md-9">
+							<div class="row">
+								<div class="aheto-footer-menu">
+									<nav class="menu-main-container">
+										<ul class="main-menu">
+											<li
+												class="menu-item  menu-item-type-post_type menu-item-object-page"><a
+												href="#">개인정보처리방침</a></li>
+											<li
+												class="menu-item  menu-item-type-post_type menu-item-object-page"><a
+												href="#">이용약관</a></li>
+											<li
+												class="menu-item  menu-item-type-post_type menu-item-object-page"><a
+												href="../home/main">대전예총</a></li>
+										</ul>
+									</nav>
+								</div>
+								<p>대전광역시 중구 중앙로 32 (문화동1-27) 대전예술가의집 5층 503호</p>
+								<p>
+									<span>TEL. 042)252-2187~8</span> <span>FAX. 042)254-3285</span>
+								</p>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</footer>
+	
+</body>
+</html>
+

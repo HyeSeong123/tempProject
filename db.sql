@@ -45,6 +45,10 @@ CREATE TABLE `member`(
     hpNum CHAR(20) NOT NULL
 );
 
+# 기존 패스워드 암호화
+UPDATE `member`
+SET loginPw = SHA2(loginPw, 256);
+
 ALTER TABLE `member` ADD UNIQUE INDEX (`loginId`);
 
 INSERT INTO `member`

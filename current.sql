@@ -109,15 +109,15 @@ CREATE TABLE `member` (
   PRIMARY KEY (`num`),
   UNIQUE KEY `loginId` (`loginId`),
   UNIQUE KEY `authKey` (`authKey`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `member` */
 
 insert  into `member`(`num`,`regDate`,`updateDate`,`name`,`loginId`,`loginPw`,`authKey`,`nickname`,`email`,`hpNum`) values 
-(1,'2021-03-06 15:37:54','2021-03-06 15:37:54','user1','user1','user1','authKey1__1','user1','banggu1997@gmail.com','01012341234'),
-(2,'2021-03-06 16:01:12','2021-03-07 20:56:11','test1','test1','test1','authKey1__2','test1','banggu1997@gmail.com','01083700420'),
-(4,'2021-03-07 19:44:27','2021-03-07 19:44:27','test2','test2','test2','authKey1__3','test2','banggu1997@gmail.com','01083700420'),
-(5,'2021-03-08 16:14:59','2021-03-08 16:14:59','방혜성','baobab612','baobab612','authKey1__4','방혜성','banggu1997@naver.com','01083700420');
+(6,'2021-03-09 15:27:19','2021-03-09 15:27:19','방혜성','test3','test3','authKey1__80224c2f-80a0-11eb-9d8c-b025aa3ecfdd__0.20430454165144316','baobab612','banggu1997@naver.com','010-8370-0420'),
+(7,'2021-03-09 15:50:34','2021-03-09 15:50:34','방혜성','test1','test1','authKey1__bf467589-80a3-11eb-9d8c-b025aa3ecfdd__0.3230526822833835','baobab612','banggu1997@naver.com','010-8370-0420'),
+(8,'2021-03-09 15:56:58','2021-03-09 15:56:58','방혜성','test2','test2','authKey1__a43b380c-80a4-11eb-9d8c-b025aa3ecfdd__0.5967497831180224','baobab612','banggu1997@naver.com','010-8370-0420'),
+(9,'2021-03-09 16:07:15','2021-03-09 16:07:15','방혜성','test5','test5','authKey1__13f841a4-80a6-11eb-9d8c-b025aa3ecfdd__0.373265601110892','baobab612','banggu1997@naver.com','010-8370-0420');
 
 /*Table structure for table `reply` */
 

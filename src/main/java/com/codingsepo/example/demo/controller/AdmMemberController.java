@@ -2,6 +2,7 @@ package com.codingsepo.example.demo.controller;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,42 +29,40 @@ public class AdmMemberController {
 	
 	@RequestMapping("/adm/member/doLogin")
 	@ResponseBody
-	public String doLogin(@RequestParam Map<String, Object> param, HttpSession session, String redirectUrl) {
+	public String doLogin(@RequestParam Map<String, Object> param, HttpSession session, String redirectUrl, HttpServletRequest req) {
 		if (session.getAttribute("loginedMemberNum") != null) {
-			return Util.msgAndBack("이미 로그인 상태 입니다."); 
+			return Util.msgAndBack(req,"이미 로그인 상태 입니다."); 
 		};
 		
 		if (param.get("loginId") == null) {
-			return Util.msgAndBack("아이디를 입력해주세요");
+			return Util.msgAndBack(req,"아이디를 입력해주세요");
 		}
 		
 		if (param.get("loginPw") == null) {
-			return Util.msgAndBack("패스워드를 입력해주세요");
+			return Util.msgAndBack(req,"패스워드를 입력해주세요");
 		}
 		
 		Member member = memberService.getMemberByLoginId((String) param.get("loginId"));
 		
 		if (member == null) {
-			return Util.msgAndBack(String.format("%s (은)는 존재하지 않는 아이디 입니다.", param.get("loginId")));
+			return Util.msgAndBack(req,String.format("%s (은)는 존재하지 않는 아이디 입니다.", param.get("loginId")));
 		}
 		
 		if(member.getLoginPw().equals(param.get("loginPw")) == false) {
-			return Util.msgAndBack("패스워드가 일치하지 않습니다.");
+			return Util.msgAndBack(req,"패스워드가 일치하지 않습니다.");
 		}
 		
 		if (memberService.isAdmin(member) == false) {
-			return Util.msgAndBack("관리자만 접근할 수 있는 페이지 입니다.");
+			return Util.msgAndBack(req,"관리자만 접근할 수 있는 페이지 입니다.");
 		}
 		
 		session.setAttribute("loginedMemberNum", member.getNum());
 		
 		String msg = String.format("%s님의 로그인을 환영합니다.", member.getNickname());
 		
-		if ( redirectUrl == null) {
-			redirectUrl = "../home/main";
-		}
+		redirectUrl = Util.ifEmpty(redirectUrl, "../home/main");
 		
-		return Util.msgAndReplace(msg, redirectUrl);
+		return Util.msgAndReplace(req, msg, redirectUrl);
 	}
 	@RequestMapping("/adm/member/doLogout")
 	@ResponseBody

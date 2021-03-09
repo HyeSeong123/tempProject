@@ -1,6 +1,15 @@
-server:
-  port: 8024
 spring:
+  profiles:
+    active: local
+  mail:    host: smtp.gmail.com
+    port: 587
+    username: banggu1997@gmail.com
+    password: eknclehubasxapvd
+    properties:      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true 
   mvc:
     view:
       prefix: /WEB-INF/jsp/
@@ -10,16 +19,32 @@ spring:
     url: jdbc:log4jdbc:mysql://127.0.0.1:3306/tempProject?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Seoul&useOldAliasMetadataBehavior=true&zeroDateTimeNehavior=convertToNull
     
     ## 집
-    username: sbsst
-    password: sbs123414
+    ## username: sbsst
+    ## password: sbs123414
     
     ## 회사
-    ##username: codingsepo
-    ##password: coding123414
+    username: codingsepo
+    password: coding123414
     
 mybatis:
   type-aliases-package: com.codingsepo.example.demo.dto
+server:  error:
+    include-exception: true
+    include-stacktrace: always
+    include-message: always
+    include-binding-errors: always  
 custom:
+  siteName: 대전예총
+  siteUri: http://localhost:8024
+  siteMainUri: http://localhost:8024/usr/home/main
+  siteLoginUri: http://localhost:8024/usr/member/login
+  emailFrom: no-reply@localhost
+  emailFromName: 대전예총
   logging:
     dir: log
     level: debug
+    
+---
+    
+server:
+  port: 8024
