@@ -35,7 +35,7 @@
 	</script>
 	<div>
 
-		<form action="doFindLoginId" method="POST" onsubmit="findLoginFormSubmit(this); return false;">
+		<form action="doFindLoginPw" method="POST" onsubmit="findLoginFormSubmit(this); return false;">
 			
 			<div>
 				아이디 : <input type="text" name="loginId" placeholder="아이디를 입력해주세요" />

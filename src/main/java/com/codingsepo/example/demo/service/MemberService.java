@@ -71,7 +71,9 @@ public class MemberService {
 	public ResultData setTempPasswordAndNotify(Member member) {
 		Random r = new Random();
 		String tempLoginPw = (10000 + r.nextInt(90000)) + "";
-
+		
+		System.out.println("tempLoginPw= " + tempLoginPw);
+		
 		String mailTitle = String.format("[%s] 임시 패스워드가 발송 되었습니다.", siteName);
 		String mailBody = "";
 
@@ -92,7 +94,7 @@ public class MemberService {
 		modifyParam.put("loginId", member.getLoginId());
 		modifyParam.put("num", member.getNum());
 
-		memberDao.doModify(modifyParam);
+		memberDao.modifyMember(modifyParam);
 
 		return new ResultData("S-1", "임시 패스워드를 메일로 발송하였습니다.");
 	}

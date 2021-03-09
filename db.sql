@@ -127,4 +127,3 @@ INSERT INTO reply
     relTypeCode = 'article',
     `body` = '댓글5'
     
-

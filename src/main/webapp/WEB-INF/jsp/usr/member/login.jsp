@@ -1,15 +1,48 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
 <%@ include file="../part/head.jspf"%>
 
 	<div class="container-fluid sub_bg">
-		<div class="container">
+		<div class="container">	
 			<h2 class="sub_tit">로그인</h2>
 		</div>
 	</div>
 	<div class="login">
-		<form method="post" action="doLogin" class="login-form">
+	
+	<script>
+		function loginFormSubmit(form){
+			let doLoginForm_submited = false;
+			
+			if (doLoginForm_submited) {
+					alert('처리중입니다.');
+					return;
+				}
+				
+			form.loginId.value = form.loginId.value.trim();
+			
+			if ( form.loginId.value.length == 0 ){
+				alert('로그인 아이디를 입력해주세요');
+				form.loginId.focus();
+				return;
+			}
+			
+			form.loginPw.value = form.loginPw.value.trim();
+			
+			if ( form.loginPw.value.length == 0 ){
+				alert('로그인 패스워드를 입력해주세요');
+				form.loginPw.focus();
+				return;
+			}
+			
+			form.loginPw.value = sha256(form.loginPw.value);
+			
+			form.submit();
+			doLoginForm_submited = true;
+		}
+	</script>
+	
+		<form method="post" action="doLogin" class="login-form" onsubmit="loginFormSubmit(this); return false;">
 			<fieldset>
 				<div class="username">
 					

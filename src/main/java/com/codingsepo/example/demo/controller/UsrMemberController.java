@@ -87,7 +87,7 @@ public class UsrMemberController {
 		if (param.get("loginPw") == null) {
 			return Util.msgAndBack(req, "패스워드를 입력해주세요");
 		}
-
+		System.out.println("loginPw=" + param.get("loginPw"));
 		Member member = memberService.getMemberByLoginId((String) param.get("loginId"));
 
 		if (member == null) {

@@ -24,6 +24,4 @@ public interface MemberDao {
 
 	public Member getMemberByNameAndEmail(@Param("name") String name,@Param("email") String email);
 
-	public void doModify(Map<String, Object> modifyParam);
-
 }
