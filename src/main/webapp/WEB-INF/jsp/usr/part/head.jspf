@@ -68,18 +68,18 @@
 								</c:if>
 
 								<c:if test="${isLogined}">
-									<a href="../member/showInforMe">내정보</a>
+									<a href="../member/identification">내정보</a>
 								</c:if>
 
 							</div>
 
 							<div class="log-in">
 								<c:if test="${not isLogined}">
-									<a href="../member/login">로그인</a>
+									<a href="../member/login?redirectUrl=${encodedRequestUrl}">로그인</a>
 								</c:if>
 
 								<c:if test="${isLogined}">
-									<a href="../member/doLogout">로그아웃</a>
+									<a href="../member/doLogout?redirectUrl=${encodedRequestUrl}">로그아웃</a>
 								</c:if>
 							</div>
 
@@ -158,17 +158,17 @@
 								</li>
 								<li
 									class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children">
-									<a href="../menu05/notice">협회소식</a>
+									<a href="../article/list?boardNum=1">협회소식</a>
 									<ul class="sub-menu menu-depth-1">
 										<li
 											class="menu-item menu-item-type-custom menu-item-object-custom"><a
-											href="../menu05/notice">공지사항</a></li>
+											href="../article/list?boardNum=1">공지사항</a></li>
 										<li
 											class="menu-item menu-item-type-custom menu-item-object-custom"><a
-											href="../menu05/EventNews">행사소식</a></li>
+											href="../article/EventNews">행사소식</a></li>
 										<li
 											class="menu-item menu-item-type-custom menu-item-object-custom"><a
-											href="../menu05/photoGallery">포토갤러리</a></li>
+											href="../article/photoGallery">포토갤러리</a></li>
 									</ul>
 								</li>
 								<!--<li class="menu-item menu-item-type-custom menu-item-object-custom">

@@ -83,4 +83,8 @@ public class ArticleService {
 		return articleDao.getBoardByNum(boardNum);
 	}
 
+	public int totalCount(int boardNum, String searchKeyword, String searchKeywordType) {
+		return articleDao.totalCount(boardNum,searchKeyword,searchKeywordType);
+	}
+	
 }

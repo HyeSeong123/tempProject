@@ -1,31 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
+
 <%@ include file="../part/head.jspf"%>
 
 	<div class="container-fluid sub_bg">
 		<div class="container">	
-			<h2 class="sub_tit">로그인</h2>
+			<h2 class="sub_tit">본인 확인</h2>
 		</div>
 	</div>
 	<div class="login">
 	
 	<script>
-		function loginFormSubmit(form){
-			let doLoginForm_submited = false;
+		function identificationFormSubmit(form){
+			let doIdentificationForm_submited = false;
 			
-			if (doLoginForm_submited) {
+			if (doIdentificationForm_submited) {
 					alert('처리중입니다.');
 					return;
 				}
-				
-			form.loginId.value = form.loginId.value.trim();
-			
-			if ( form.loginId.value.length == 0 ){
-				alert('로그인 아이디를 입력해주세요');
-				form.loginId.focus();
-				return;
-			}
 			
 			form.loginPw.value = form.loginPw.value.trim();
 			
@@ -38,40 +32,28 @@
 			form.loginPw.value = sha256(form.loginPw.value);
 			
 			form.submit();
-			doLoginForm_submited = true;
+			doIdentificationForm_submited = true;
 		}
 	</script>
 	
-		<form method="post" action="doLogin" class="login-form" onsubmit="loginFormSubmit(this); return false;">
+		<form method="post" action="doIdentification" class="login-form" onsubmit="identificationFormSubmit(this); return false;">
 			<fieldset>
 				<div class="username">
 					
 					<label for="user_login">아이디 </label> <input type="text" name="loginId"
-						size="20" id="user_login" tabindex="105">
+						size="20" id="user_login" tabindex="105" value="${loginedMember.loginId}" readOnly>
 				</div>
 				<div class="password">
 					<label for="user_pass">비밀번호 </label> <input type="password"
 						name="loginPw" size="20" id="user_pass" tabindex="106">
 				</div>
-				<div class="remember-me">
-					<input type="checkbox" name="rememberme" value="forever"
-						id="rememberme" tabindex="107"> <label for="rememberme">아이디
-						저장</label>
-				</div>
+
 				<div class="submit-wrapper">
 					<button type="submit" name="user-submit" id="user-submit"
-						tabindex="108" class="button submit user-submit">로그인</button>
+						tabindex="108" class="button submit user-submit">확인 완료</button>
 				</div>
-				
-				<input type="text" name="redirectUrl" value="${param.redirectUrl}"/>
 			</fieldset>
 		</form>
-		<div class="link">
-			<a href="findLoginId">아이디</a> <a href="findLoginPw">비밀번호찾기</a>
-		</div>
-		<div class="btn_group signup">
-			<a href="join" class="btn btn_gold">회원가입</a>
-		</div>
 
 	</div>
 

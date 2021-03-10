@@ -29,12 +29,17 @@ public class BeforeActionIntercepter implements HandlerInterceptor {
 		String requestUrl = request.getRequestURI();
 		String queryString = request.getQueryString();
 
+		System.out.println("requestUrl= " + requestUrl);
+		System.out.println("queryString= " + queryString);
+		
 		if (queryString != null && queryString.length() > 0) {
 			requestUrl += "?" + queryString;
 		}
 
 		String encodedRequestUrl = Util.getUrlEncoded(requestUrl);
-
+		
+		System.out.println("encodedRequestUrl= " + encodedRequestUrl);
+		
 		request.setAttribute("requestUrl", requestUrl);
 		request.setAttribute("encodedRequestUrl", encodedRequestUrl);
 

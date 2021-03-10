@@ -15,6 +15,7 @@ public class Article {
 	private int boardNum;
 	private String title;
 	private String body;
+	private int view;
 	
 	private String extra__writer;
 	private String extra__board;

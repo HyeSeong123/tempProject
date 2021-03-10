@@ -25,9 +25,13 @@ public interface ArticleDao {
 
 	public Article getForPrintArticle(@Param("num") int num);
 
-	public List<Article> getForPrintArticles(@Param("boardNum") int boardNum, @Param("searchKeywordType") String searchKeywordType,
-			@Param("searchKeyword") String searchKeyword,@Param("limitStart") int limitStart,@Param("limitTake")  int limitTake);
+	public List<Article> getForPrintArticles(@Param("boardNum") int boardNum,
+			@Param("searchKeywordType") String searchKeywordType, @Param("searchKeyword") String searchKeyword,
+			@Param("limitStart") int limitStart, @Param("limitTake") int limitTake);
 
 	public Board getBoardByNum(@Param("num") int boardNum);
+
+	public int totalCount(@Param("boardNum") int boardNum, @Param("searchKeyword") String searchKeyword,
+			@Param("searchKeywordType") String searchKeywordType);
 
 }

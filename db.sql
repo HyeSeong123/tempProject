@@ -12,18 +12,20 @@ CREATE TABLE article(
 
 ALTER TABLE article ADD COLUMN memberNum INT(10) UNSIGNED NOT NULL AFTER updateDate
 ALTER TABLE article ADD COLUMN boardNum INT(10) UNSIGNED NOT NULL AFTER memberNum
+ALTER TABLE article ADD COLUMN `view` INT(10) UNSIGNED NOT NULL
 
 INSERT INTO article
     SET regDate= NOW(),
     updateDate = NOW(),
     `title` = '게시글1',
     `body` = '내용1'
-    
+
+
 INSERT INTO article
     SET regDate= NOW(),
     updateDate = NOW(),
     `title` = '게시글2',
-    `body` = '내용2'
+    `BODY` = '내용2'
 
 UPDATE article
 SET memberNum = 1
@@ -33,7 +35,7 @@ UPDATE article
 SET boardNum = 1
 WHERE boardNum = 0
     
-CREATE TABLE `member`(
+CREATE TABLE `MEMBER`(
     num INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
     regDate DATETIME NOT NULL,
     updateDate DATETIME NOT NULL,

@@ -3,19 +3,21 @@ package com.codingsepo.example.demo.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.codingsepo.example.demo.dto.Article;
 import com.codingsepo.example.demo.dto.Board;
+import com.codingsepo.example.demo.dto.Member;
 import com.codingsepo.example.demo.dto.ResultData;
 import com.codingsepo.example.demo.service.ArticleService;
-import com.codingsepo.example.demo.service.MemberService;
 import com.codingsepo.example.demo.service.ReplyService;
 import com.codingsepo.example.demo.util.Util;
 
@@ -103,29 +105,35 @@ public class UsrArticleController {
 	}
 
 	@RequestMapping("/usr/article/detail")
-	@ResponseBody
-	public ResultData showDetail(Integer num) {
+	public String showDetail(Integer num,HttpServletRequest req, Model model, String redirectUrl) {
 		if (num == null) {
-			return new ResultData("F-1", "게시물 번호를입력해주세요.");
+			return Util.msgAndBack(req, "게시물 번호를 입력해주세요.");
 		}
 
 		Article article = articleService.getForPrintArticle(num);
 
 		if (article == null) {
-			return new ResultData("F-2", "존재하지 않는 게시물 번호입니다.");
+			return Util.msgAndBack(req, "존재하지 않는 게시물 번호입니다.");
 		}
-
-		return new ResultData("S-1", "성공", "article", article);
+		
+		if(redirectUrl == null) {
+			redirectUrl = "/usr/article/list?boardNum=" + article.getBoardNum();
+		}
+		
+		model.addAttribute("redirectUrl", redirectUrl);
+		model.addAttribute("article", article);
+		
+		return "usr/article/detail";
 	}
 
 	@RequestMapping("/usr/article/list")
-	@ResponseBody
-	public ResultData showList(@RequestParam(defaultValue = "1") int page, int boardNum,
+	public String showList(@RequestParam(defaultValue = "1") int page, int boardNum, HttpServletRequest req, Model model,
 			@RequestParam(defaultValue = "titleAndBody") String searchKeywordType, String searchKeyword) {
+		
 		Board board = articleService.getBoardByByNum(boardNum);
 		
 		if(board == null) {
-			return new ResultData("F-1", "존재하지 않는 게시판 입니다.");
+			return Util.msgAndBack(req, "존재하지 않는 게시판 입니다.");
 		}
 		
 		if (searchKeywordType != null) {
@@ -144,12 +152,34 @@ public class UsrArticleController {
 			searchKeywordType = null;
 		}
 
-		int ItemsInAPage = 20;
+		int totalCount = articleService.totalCount(boardNum,searchKeyword,searchKeywordType);
+		
+		int itemsCountInAPage = 10;
+		int totalPage = (int) Math.ceil(totalCount / (double) itemsCountInAPage);
+		int pageMenuArmSize = 4;
+		int pageMenuStart = page - pageMenuArmSize;
 
+		if (pageMenuStart < 1) {
+			pageMenuStart = 1;
+		}
+		int pageMenuEnd = page + pageMenuArmSize;
+
+		if (pageMenuEnd > totalPage) {
+			pageMenuEnd = totalPage;
+		}
+		
+		Member loginedMember = (Member) req.getAttribute("loginedMember");
 		List<Article> articles = articleService.getForPrintArticles(boardNum, searchKeywordType, searchKeyword, page,
-				ItemsInAPage);
-
-		return new ResultData("S-1", "성공", "articles", articles);
+				itemsCountInAPage);	
+		
+		req.setAttribute("board", board);
+		model.addAttribute("totalCount", totalCount);
+		model.addAttribute("page", page);
+		model.addAttribute("pageMenuStart", pageMenuStart);
+		model.addAttribute("pageMenuEnd", pageMenuEnd);
+		req.setAttribute("articles", articles);
+		
+		return "usr/article/list";
 	}
 	
 	@RequestMapping("/usr/article/doAddReply")

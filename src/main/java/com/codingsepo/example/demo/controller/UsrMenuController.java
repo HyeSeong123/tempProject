@@ -1,11 +1,25 @@
 package com.codingsepo.example.demo.controller;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.codingsepo.example.demo.dto.Article;
+import com.codingsepo.example.demo.dto.Board;
+import com.codingsepo.example.demo.dto.ResultData;
+import com.codingsepo.example.demo.service.ArticleService;
+import com.codingsepo.example.demo.util.Util;
 
 @Controller
 public class UsrMenuController {
+	
+	@Autowired
+	private ArticleService articleService;
 	
 	/* 대전예총 메뉴 시작 */
 	
@@ -85,15 +99,5 @@ public class UsrMenuController {
 	/* 회원단체 메뉴 끝 */
 	
 	/* 협회소식 메뉴 시작 */
-	
-	@RequestMapping("/usr/menu05/notice")
-	public String showNotice() {
-		return "usr/menu05/notice";
-	}
-	
-	@RequestMapping("/usr/menu05/photoGallery")
-	public String showPhotoGallery() {
-		return "usr/menu05/photoGallery";
-	}
-	/* 협회소식 메뉴 끝 */
+
 }

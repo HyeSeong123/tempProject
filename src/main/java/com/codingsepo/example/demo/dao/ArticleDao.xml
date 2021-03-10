@@ -12,15 +12,13 @@
 	</select>
 	
 	<select id="getForPrintArticle" resultType="Article">
-		SELECT *,
-		IFNULL(M.nickname, "탈퇴회원") AS extra__writer,
-		B.name AS extra__board
+		SELECT A.title,
+		DATE_FORMAT(A.regDate, '%Y-%m-%d') AS regDate,
+		A.body,
+		A.boardNum
 		FROM article AS A
-		LEFT JOIN `member` AS M
-		ON A.memberNum = M.num
-		LEFT JOIN `board` AS B
-		ON A.boardNum = B.num 
-		WHERE A.num = #{num}
+		
+		WHERE num = #{num}
 	</select>
 	
 	<!-- public List<Article> getArticles(@Param(value = "searchKeywordType") 
@@ -48,29 +46,28 @@
 	</select>
 
 	<select id="getForPrintArticles" resultType="Article">
-		SELECT A.*,
-		M.nickname AS extra__writer,
-		B.name AS extra__board
+		SELECT A.num, A.title,
+		IFNULL(M.nickname, "탈퇴회원") AS extra__writer,
+		DATE_FORMAT(A.regDate, '%m-%d') AS regDate,
+		A.view
 		FROM article AS A
 		LEFT JOIN `member` AS M
 		ON A.memberNum = M.num
-		LEFT JOIN `board` AS B
-		ON A.boardNum = B.num
 		WHERE 1
 		
 		<if test="boardNum != null">
 			AND A.boardNum = #{boardNum}
 		</if>
 		
-		<if test="searchKeywordType == 'title'">
+		<if test="searchKeywordType == '제목'">
 			AND title LIKE CONCAT ('%', #{searchKeyword} , '%')
 		</if>
 		
-		<if test="searchKeywordType == 'body'">
+		<if test="searchKeywordType == '내용'">
 			AND body LIKE CONCAT('%', #{searchKeyword}, '%')
 		</if>
 		
-		<if test="searchKeywordType == 'titleAndBody'">
+		<if test="searchKeywordType == '제목과내용'">
 			AND (title LIKE CONCAT('%', #{searchKeyword}, '%') OR `body` LIKE CONCAT('%', #{searchKeyword}, '%')) 
 		</if>
 		
@@ -117,10 +114,37 @@
 		WHERE num = #{num}
 	</update>
 	
-		<select id="getBoardByNum" resultType="Board">
+	<select id="getBoardByNum" resultType="Board">
 		SELECT *
 		FROM board
 		WHERE num = #{num}
 	</select>
 
+	<select id ="totalCount" resultType="int">
+		SELECT COUNT(*) 
+		FROM article AS A
+		INNER JOIN board AS B
+		ON A.boardNum = B.num
+		AND B.num = #{boardNum}
+			
+		<if test="searchKeywordType == '제목'" >
+			AND title LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		
+		<if test="searchKeywordType == '내용'" >
+			AND body  LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		
+		<if test="searchKeywordType == '제목과내용'" >
+			AND title LIKE CONCAT('%', #{searchKeyword}, '%')
+			AND body  LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		
+		<if test="searchKeywordType == '작성일'" >
+			AND REPLACE(A.regDate, '-', '') LIKE CONCAT('%', REPLACE(#{searchKeyword}, '-' , ''), '%')
+		</if>
+
+		
+	</select>
+	
 </mapper>

@@ -87,7 +87,6 @@ public class UsrMemberController {
 		if (param.get("loginPw") == null) {
 			return Util.msgAndBack(req, "패스워드를 입력해주세요");
 		}
-		System.out.println("loginPw=" + param.get("loginPw"));
 		Member member = memberService.getMemberByLoginId((String) param.get("loginId"));
 
 		if (member == null) {
@@ -224,15 +223,16 @@ public class UsrMemberController {
 	}
 
 	@RequestMapping("/usr/member/doLogout")
-	public String doLogout(HttpSession session, HttpServletRequest req) {
+	public String doLogout(HttpSession session, HttpServletRequest req, String redirectUrl) {
 		session.removeAttribute("loginedMemberNum");
 
-		return Util.msgAndReplace(req, "로그아웃 되었습니다.", "../home/main");
+		redirectUrl = Util.ifEmpty(redirectUrl, "/usr/home/main");
+		
+		return Util.msgAndReplace(req, "로그아웃 되었습니다.", redirectUrl);
 	}
 
 	@RequestMapping("/usr/member/doModify")
-	@ResponseBody
-	public ResultData doModify(@RequestParam Map<String, Object> param, HttpSession session) {
+	public String doModify(@RequestParam Map<String, Object> param, HttpSession session, HttpServletRequest req) {
 
 		int loginedMemberNum = (int) session.getAttribute("loginedMemberNum");
 
@@ -241,13 +241,43 @@ public class UsrMemberController {
 		Member member = memberService.getMemberByNum(loginedMemberNum);
 
 		if (member.getNum() != loginedMemberNum) {
-			return new ResultData("F-2", "수정 권한이 없습니다.");
+			return Util.msgAndBack(req, "수정 권한이 없습니다.");
 		}
 
 		if (param.isEmpty()) {
-			return new ResultData("F-3", "수정할 정보를 입력해주세요.");
+			return Util.msgAndBack(req, "수정할 정보를 입력해주세요");
 		}
-
-		return memberService.modifyMember(param);
+		memberService.modifyMember(param);
+		
+		return Util.msgAndReplace(req, "수정이 완료되었습니다.", "/usr/home/main");
 	}
+
+	@RequestMapping("/usr/member/identification")
+	public String identification() {
+
+		return "usr/member/identification";
+	}
+
+	@RequestMapping("/usr/member/doIdentification")
+	public String doIdentification(String loginPw, HttpServletRequest req) {
+
+		Member member = (Member) req.getAttribute("loginedMember");
+		
+		System.out.println("member = " + member);
+		System.out.println("password = " + loginPw);
+		
+		
+		if(member.getLoginPw().equals(loginPw) == false) {
+			return Util.msgAndBack(req, "비밀번호가 일치하지 않습니다.");
+		}
+		
+		return Util.msgAndReplace(req,"인증 완료되었습니다.", "/usr/member/showInforMe");
+	}
+	
+	@RequestMapping("/usr/member/showInforMe")
+	public String showInforMe() {
+
+		return "usr/member/showInforMe";
+	}
+	
 }
