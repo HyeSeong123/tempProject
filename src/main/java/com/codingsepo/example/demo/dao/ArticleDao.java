@@ -34,4 +34,6 @@ public interface ArticleDao {
 	public int totalCount(@Param("boardNum") int boardNum, @Param("searchKeyword") String searchKeyword,
 			@Param("searchKeywordType") String searchKeywordType);
 
+	public void increase(@Param("num") int num, @Param("view") int view);
+
 }

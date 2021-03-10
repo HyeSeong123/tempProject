@@ -15,7 +15,8 @@
 		SELECT A.title,
 		DATE_FORMAT(A.regDate, '%Y-%m-%d') AS regDate,
 		A.body,
-		A.boardNum
+		A.boardNum,
+		A.view
 		FROM article AS A
 		
 		WHERE num = #{num}
@@ -143,8 +144,14 @@
 		<if test="searchKeywordType == '작성일'" >
 			AND REPLACE(A.regDate, '-', '') LIKE CONCAT('%', REPLACE(#{searchKeyword}, '-' , ''), '%')
 		</if>
-
-		
 	</select>
+	
+		<update id="increase">
+		UPDATE article
+		<set>
+			`view` = #{view} + 1		
+		</set>
+		WHERE num = #{num}
+	</update>
 	
 </mapper>

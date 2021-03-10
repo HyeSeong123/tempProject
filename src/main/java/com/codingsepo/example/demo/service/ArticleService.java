@@ -86,5 +86,9 @@ public class ArticleService {
 	public int totalCount(int boardNum, String searchKeyword, String searchKeywordType) {
 		return articleDao.totalCount(boardNum,searchKeyword,searchKeywordType);
 	}
+
+	public void increase(int num, int view) {
+		articleDao.increase(num, view);
+	}
 	
 }

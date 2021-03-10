@@ -112,6 +112,8 @@ public class UsrArticleController {
 
 		Article article = articleService.getForPrintArticle(num);
 
+		
+		
 		if (article == null) {
 			return Util.msgAndBack(req, "존재하지 않는 게시물 번호입니다.");
 		}
@@ -119,6 +121,8 @@ public class UsrArticleController {
 		if(redirectUrl == null) {
 			redirectUrl = "/usr/article/list?boardNum=" + article.getBoardNum();
 		}
+		
+		articleService.increase(num, article.getView());
 		
 		model.addAttribute("redirectUrl", redirectUrl);
 		model.addAttribute("article", article);
