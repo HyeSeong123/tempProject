@@ -14,12 +14,13 @@ public class NeedToLogoutInterceptor implements HandlerInterceptor {
 		// 그래서 여기서 단순히 request.getAttribute("isLogined"); 이것만으로 로그인 여부 알 수 있음
 		boolean isLogined = (boolean) request.getAttribute("isLogined");
 
-		boolean isAjax = true;
+		boolean isAjax = request.getParameter("isAjax") != null;
 
 		if (isLogined) {
 			if (isAjax == false) {
 				response.setContentType("text/html; charset=UTF-8");
 				response.getWriter().append("<script>");
+				response.getWriter().append("alert('" + "로그아웃 상태에서 이용해주세요" + "');");
 				response.getWriter().append("location.replace('/usr/home/main');");
 				response.getWriter().append("</script>");
 			} else {

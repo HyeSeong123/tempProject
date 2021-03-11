@@ -46,8 +46,8 @@
 			
 			<fieldset>
 				<div class="username">
-					<input type="hidden" name="redirectUrl" value="${param.redirectUrl}"/>
-					<input type="hidden" name="afterLoginUrl" value="${param.afterLoginUrl}"/>
+					<input type="text" name="redirectUrl" value="${param.redirectUrl}"/>
+					<input type="text" name="afterLoginUrl" value="${param.afterLoginUrl}"/>
 					<label for="user_login">아이디 </label> <input type="text" name="loginId"
 						size="20" id="user_login" tabindex="105">
 				</div>

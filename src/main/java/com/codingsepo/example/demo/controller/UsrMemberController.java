@@ -106,10 +106,9 @@ public class UsrMemberController {
 		
 		redirectUrl = Util.ifEmpty(redirectUrl, "../home/main");
 
-		if(afterLoginUrl != null) {
+		if(afterLoginUrl != null && afterLoginUrl.length() != 0) {
 			return Util.msgAndReplace(req, msg, afterLoginUrl);
 		}
-		
 		return Util.msgAndReplace(req, msg, redirectUrl);
 	}
 
@@ -117,7 +116,6 @@ public class UsrMemberController {
 	public String showFindLoginId() {
 
 		return "usr/member/findLoginId";
-
 	}
 
 	@RequestMapping("/usr/member/doFindLoginId")
@@ -267,10 +265,6 @@ public class UsrMemberController {
 	public String doIdentification(String loginPw, HttpServletRequest req) {
 
 		Member member = (Member) req.getAttribute("loginedMember");
-		
-		System.out.println("member = " + member);
-		System.out.println("password = " + loginPw);
-		
 		
 		if(member.getLoginPw().equals(loginPw) == false) {
 			return Util.msgAndBack(req, "비밀번호가 일치하지 않습니다.");
