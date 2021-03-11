@@ -43,6 +43,7 @@
 	</script>
 	
 		<form method="post" action="#" class="login-form" onsubmit="loginFormSubmit(this); return false;">
+			<input type=hidden name="redirectUrl" value="${param.redirectUrl}" />
 			<fieldset>
 				<div class="username">
 					<label for="user_login">아이디 </label> <input type="text" name="log"

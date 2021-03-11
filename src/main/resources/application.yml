@@ -38,6 +38,7 @@ custom:
   siteUri: http://localhost:8024
   siteMainUri: http://localhost:8024/usr/home/main
   siteLoginUri: http://localhost:8024/usr/member/login
+  genFileDirPath: C:/work/tempProject-file
   emailFrom: no-reply@localhost
   emailFromName: 대전예총
   logging:

@@ -19,6 +19,9 @@ public class ArticleService {
 	private MemberService memberService;
 	
 	@Autowired
+	private GenFileService genFileService;
+	
+	@Autowired
 	private ArticleDao articleDao;
 
 	public Article getArticle(int num) {
@@ -38,10 +41,12 @@ public class ArticleService {
 	}
 	
 	public ResultData addArticle(Map<String,Object> param) {
+		articleDao.addArticle(param);
+		
 		int num = Util.getAsInt(param.get("num"), 0);
 		
-		articleDao.addArticle(param);
-
+		genFileService.changeInputFileRelIds(param, num);
+		
 		return new ResultData("S-1", "성공하였습니다.", "num", num);
 	}
 

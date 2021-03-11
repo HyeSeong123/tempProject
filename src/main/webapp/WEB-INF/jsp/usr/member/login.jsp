@@ -43,9 +43,11 @@
 	</script>
 	
 		<form method="post" action="doLogin" class="login-form" onsubmit="loginFormSubmit(this); return false;">
+			
 			<fieldset>
 				<div class="username">
-					
+					<input type="hidden" name="redirectUrl" value="${param.redirectUrl}"/>
+					<input type="hidden" name="afterLoginUrl" value="${param.afterLoginUrl}"/>
 					<label for="user_login">아이디 </label> <input type="text" name="loginId"
 						size="20" id="user_login" tabindex="105">
 				</div>
@@ -63,7 +65,6 @@
 						tabindex="108" class="button submit user-submit">로그인</button>
 				</div>
 				
-				<input type="text" name="redirectUrl" value="${param.redirectUrl}"/>
 			</fieldset>
 		</form>
 		<div class="link">

@@ -8,7 +8,7 @@
 
 <div class="container-fluid sub_bg">
 	<div class="container">
-		<h2 class="sub_tit">공지사항</h2>
+		<h2 class="sub_tit">${board.name}</h2>
 	</div>
 </div>
 <div class="container-fluid padding-lg-0l padding-lg-0r section">

@@ -122,6 +122,10 @@ INSERT INTO board
     `name` = '자유게시판',
     `code` = 'free'
     
+    SELECT *
+    FROM article
+    WHERE boardNum=2
+    
 CREATE TABLE reply(
     num INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
     regDate DATETIME NOT NULL,
@@ -142,14 +146,14 @@ INSERT INTO reply
     relTypeCode = 'article',
     `body` = '댓글5'
     
-CREATE TABLE getFile (
+CREATE TABLE genFile (
   id INT(10) UNSIGNED NOT NULL AUTO_INCREMENT, # 번호
   regDate DATETIME DEFAULT NULL, # 작성날짜
   updateDate DATETIME DEFAULT NULL, # 갱신날짜
   delDate DATETIME DEFAULT NULL, # 삭제날짜
   delStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0, # 삭제상태(0:미삭제,1:삭제)
   relTypeCode CHAR(50) NOT NULL, # 관련 데이터 타입(article, member)
-  relId INT(10) UNSIGNED NOT NULL, # 관련 데이터 번호
+  relNum INT(10) UNSIGNED NOT NULL, # 관련 데이터 번호
   originFileName VARCHAR(100) NOT NULL, # 업로드 당시의 파일이름
   fileExt CHAR(10) NOT NULL, # 확장자
   typeCode CHAR(20) NOT NULL, # 종류코드 (common)
@@ -162,3 +166,5 @@ CREATE TABLE getFile (
   PRIMARY KEY (id),
   KEY relId (relId,relTypeCode,typeCode,type2Code,fileNo)
 ); 
+
+SELECT * FROM genFile

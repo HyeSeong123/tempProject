@@ -101,10 +101,15 @@ public class UsrMemberController {
 
 		String msg = String.format("%s님의 로그인을 환영합니다.", member.getNickname());
 
+		String afterLoginUrl = (String) param.get("afterLoginUrl");
 		String redirectUrl = (String) param.get("redirectUrl");
-
+		
 		redirectUrl = Util.ifEmpty(redirectUrl, "../home/main");
 
+		if(afterLoginUrl != null) {
+			return Util.msgAndReplace(req, msg, afterLoginUrl);
+		}
+		
 		return Util.msgAndReplace(req, msg, redirectUrl);
 	}
 

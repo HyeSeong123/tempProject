@@ -168,7 +168,7 @@
 											href="../article/EventNews">행사소식</a></li>
 										<li
 											class="menu-item menu-item-type-custom menu-item-object-custom"><a
-											href="../article/photoGallery">포토갤러리</a></li>
+											href="../article/list?boardNum=2">포토갤러리</a></li>
 									</ul>
 								</li>
 								<!--<li class="menu-item menu-item-type-custom menu-item-object-custom">
