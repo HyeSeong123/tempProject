@@ -153,7 +153,7 @@ public class UsrArticleController {
 			}
 		}
 
-		return Util.msgAndReplace(req, "작성이 완료되었습니다.", "/usr/article/list?boardNum=" + param.get("boardNum"));
+		return Util.msgAndReplace(req, "작성이 완료되었습니다.", "/usr/article/detail?num=" + newArticleNum);
 	}
 
 	@RequestMapping("/usr/article/detail")

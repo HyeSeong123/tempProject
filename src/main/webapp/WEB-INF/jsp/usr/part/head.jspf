@@ -117,18 +117,14 @@
 										class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children">
 										<a href="../menu01/greetings">대전예총</a>
 										<ul class="sub-menu menu-depth-1">
-											<li
-												class="menu-item menu-item-type-custom menu-item-object-custom"><a
-												href="../menu01/greetings">인사말</a></li>
-											<li
-												class="menu-item menu-item-type-custom menu-item-object-custom"><a
-												href="../menu01/history">연혁</a></li>
-											<li
-												class="menu-item menu-item-type-custom menu-item-object-custom"><a
-												href="../menu01/organi">조직도</a></li>
-											<li
-												class="menu-item menu-item-type-custom menu-item-object-custom"><a
-												href="../menu01/come">찾아오시는 길</a></li>
+											<li class="menu-item menu-item-type-custom menu-item-object-custom">
+											<a href="../menu01/greetings">인사말</a></li>
+											<li class="menu-item menu-item-type-custom menu-item-object-custom">
+											<a href="../menu01/history">연혁</a></li>
+											<li class="menu-item menu-item-type-custom menu-item-object-custom">
+											<a href="../menu01/organi">조직도</a></li>
+											<li class="menu-item menu-item-type-custom menu-item-object-custom">
+											<a href="../menu01/come">찾아오시는 길</a></li>
 									</li>
 								</ul>
 								</li>

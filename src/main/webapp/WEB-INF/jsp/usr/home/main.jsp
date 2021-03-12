@@ -468,7 +468,7 @@
 	</div>
 </div>
 <div class="bg-wrap"
-	style="background: url(img/main/wave.jpg) no-repeat center center;">
+	style="background: url(/resource/img/main/wave.jpg) no-repeat center center;">
 	<div class="container">
 		<div
 			class="row padding-lg-145t padding-lg-135b padding-md-60t padding-md-60b  margin-sm-30t">

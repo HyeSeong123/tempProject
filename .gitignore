@@ -34,3 +34,4 @@ build/
 bin/
 log/
 LOG_PATH_IS_UNDEFINED/
+tempProject-file/

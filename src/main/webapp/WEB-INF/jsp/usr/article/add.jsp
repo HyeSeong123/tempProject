@@ -6,6 +6,12 @@
 
 <%@ include file="../part/head.jspf"%>
 
+<c:set var="fileInputMaxCount" value="10" />
+
+<script>
+	ArticleAdd__fileInputMaxCount = parseInt("${fileInputMaxCount}");
+</script>
+ 
 <div class="container-fluid sub_bg">
 	<div class="container">
 		<h2 class="sub_tit">공지사항</h2>
@@ -29,7 +35,7 @@
 			if ( form.title.value.length == 0 ){
 				alert('게시글의 제목을 입력해주세요');
 				form.title.focus();
-				return;
+				return false;
 			}
 			
 			form.body.value = form.body.value.trim();
@@ -37,17 +43,77 @@
 			if ( form.body.value.length == 0 ){
 				alert('게시글의 내용을 입력해주세요');
 				form.body.focus();
-				return;
+				return false;
 			}
 			
-			form.submit();
+			var maxSizeMb = 5;
+			var maxSize = maxSizeMb * 1024 * 1024;
+			
+			for( let inputNo = 1; inputNo <= ArticleAdd__fileInputMaxCount; inputNo++){
+				const input = form["file__article__0__common__attachment__" + inputNo];
+			
+				if (input.value){
+					if(input.files[0].size > maxSize){
+						alert(maxSizeMb + "MB 이하의 파일을 업로드 해주세요.");
+						input.focus();
+						
+						return;
+					}
+				}
+			}
+			
+			const startSubmitForm = function(data){
+				let genFileIdsStr = '';
+				
+				if (data && data.body && data.body.genFileIdsStr){
+					genFileIdsStr = data.body.genFileIdsStr;
+				}
+				form.genFileIdsStr.value = genFileIdsStr;
+				
+				for(let inputNo = 1; inputNo <= ArticleAdd__fileInputMaxCount; inputNo++){
+					const input = form["file__article__0__common__attachment__" + inputNo];
+					input.value = '';
+				}
+				
+				form.submit();
+			};
+			
+	const startUploadFiles = function(onSuccess) {
+		var needToUpload = false;
+		for ( let inputNo = 1; inputNo <= ArticleAdd__fileInputMaxCount; inputNo++ ) {
+			const input = form["file__article__0__common__attachment__" + inputNo];
+			if ( input.value.length > 0 ) {
+				needToUpload = true;
+				break;
+			}
+		}
+		
+		if (needToUpload == false) {
+			onSuccess();
+			return;
+		}
+				
+				var fileUploadFormData = new FormData(form);
+				$.ajax({
+					url : '/common/genFile/doUpload',
+					data : fileUploadFormData,
+					processData : false,
+					contentType : false,
+					dataType : "json",
+					type : 'POST',
+					success : onSuccess
+				});
+			}
 			addArticleForm_submited = true;
+			
+			startUploadFiles(startSubmitForm);
 		}
 	</script>
 
 			<form action="doAddTest" method="POST" onsubmit="addArticleFormSubmit(this); return false;" enctype="multipart/form-data">
 
 				<input type="hidden" name="boardNum" value="${param.boardNum}" />
+				<input type="hidden" name="genFileIdsStr" value=""/>
 				<table class="write">
 					<colgroup>
 						<col style="width: 100px;">
@@ -67,15 +133,13 @@
 							<td><textarea name="body" id="" cols="30" rows="10"></textarea></td>
 						</tr>
 						
-						<tr>
-							<th>첨부파일1</th>
-							<td><input type="file" name="file__article__0__common__attachment__1"></td>
-						</tr>
-						
-						<tr>
-							<th>첨부파일2</th>
-							<td><input type="file" name="file__article__0__common__attachment__2"></td>
-						</tr>
+						<c:forEach begin="1" end="${fileInputMaxCount}" var="inputNo"> 
+							<tr>
+								<th>첨부파일 ${inputNo }</th>
+								<td><input type="file" name="file__article__0__common__attachment__${inputNo}"></td>
+							</tr>
+						</c:forEach>
+
 					</tbody>
 				</table>
 				
