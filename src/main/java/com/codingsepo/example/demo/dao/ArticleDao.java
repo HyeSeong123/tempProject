@@ -14,8 +14,7 @@ public interface ArticleDao {
 
 	public Article getArticle(@Param("num") int num);
 
-	public List<Article> getArticles(@Param("searchKeywordType") String searchKeywordType,
-			@Param("searchKeyword") String searchKeyword);
+	public List<Article> getArticles();
 
 	public void addArticle(Map<String, Object> param);
 

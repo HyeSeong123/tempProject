@@ -1,14 +1,27 @@
 package com.codingsepo.example.demo.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.codingsepo.example.demo.dto.Article;
+import com.codingsepo.example.demo.service.ArticleService;
 
 @Controller
 public class UsrHomeController {
+	@Autowired
+	ArticleService articleService;
 	
 	@RequestMapping("/usr/home/main")
-	public String showMain() {
+	public String showMain(Model model) {
+		
+		List<Article> articles = articleService.getArticles();
+		
+		model.addAttribute("articles", articles);
+		
 		return "usr/home/main";
 	}
 	

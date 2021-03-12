@@ -1,6 +1,5 @@
 package com.codingsepo.example.demo.service;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.codingsepo.example.demo.dao.ArticleDao;
+import com.codingsepo.example.demo.dao.GenFileDao;
 import com.codingsepo.example.demo.dto.Article;
 import com.codingsepo.example.demo.dto.Board;
 import com.codingsepo.example.demo.dto.ResultData;
@@ -23,14 +23,17 @@ public class ArticleService {
 	private GenFileService genFileService;
 	
 	@Autowired
+	private GenFileDao genFileDao;
+	
+	@Autowired
 	private ArticleDao articleDao;
 
 	public Article getArticle(int num) {
 		return articleDao.getArticle(num);
 	}
 
-	public List<Article> getArticles(String searchKeywordType, String searchKeyword) {
-		return articleDao.getArticles(searchKeywordType, searchKeyword);
+	public List<Article> getArticles() {
+		return articleDao.getArticles();
 	}
 	
 	public List<Article> getForPrintArticles(int boardNum, String searchKeywordType, String searchKeyword, int page, int itemsInAPage) {
@@ -66,6 +69,8 @@ public class ArticleService {
 
 	public ResultData deleteArticle(int num) {
 		articleDao.deleteArticle(num);
+		
+		genFileService.deleteFiles("article",num);
 		
 		return new ResultData("S-1", "삭제하였습니다.", "num", num);
 	}

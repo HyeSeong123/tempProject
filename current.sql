@@ -30,7 +30,7 @@ CREATE TABLE `article` (
   `body` longtext NOT NULL,
   `view` int(10) unsigned NOT NULL DEFAULT 0,
   PRIMARY KEY (`num`)
-) ENGINE=InnoDB AUTO_INCREMENT=98 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=120 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `article` */
 
@@ -92,7 +92,7 @@ insert  into `article`(`num`,`regDate`,`updateDate`,`memberNum`,`boardNum`,`titl
 (60,'2021-03-10 16:26:26','2021-03-10 16:26:26',2,1,'게시글2','내용2',0),
 (61,'2021-03-10 16:26:26','2021-03-10 16:26:26',2,1,'게시글2','내용2',1),
 (62,'2021-03-10 16:26:26','2021-03-10 16:26:26',2,1,'게시글2','내용2',1),
-(63,'2021-03-10 16:26:26','2021-03-10 16:26:26',2,1,'게시글2','내용2',6),
+(63,'2021-03-10 16:26:26','2021-03-10 16:26:26',2,1,'게시글2','내용2',7),
 (65,'2021-03-11 11:21:29','2021-03-11 11:21:29',2,1,'test1','test1',0),
 (66,'2021-03-11 11:25:16','2021-03-11 11:25:16',2,1,'test1','test1',0),
 (67,'2021-03-11 11:25:49','2021-03-11 11:25:49',2,1,'asd','as',0),
@@ -120,12 +120,14 @@ insert  into `article`(`num`,`regDate`,`updateDate`,`memberNum`,`boardNum`,`titl
 (89,'2021-03-11 16:09:00','2021-03-11 16:09:00',2,1,'32423','23423234',0),
 (90,'2021-03-11 16:10:35','2021-03-11 16:10:35',2,1,'32423','23423234',0),
 (91,'2021-03-11 16:16:36','2021-03-11 16:16:36',2,1,'32423','23423234',1),
-(92,'2021-03-11 16:17:57','2021-03-11 16:17:57',2,1,'4553','34535',7),
+(92,'2021-03-11 16:17:57','2021-03-11 16:17:57',2,1,'4553','34535',8),
 (93,'2021-03-11 16:54:13','2021-03-11 16:54:13',2,2,'123','123213',2),
 (94,'2021-03-11 16:55:59','2021-03-11 16:55:59',2,2,'테스트2','테스트2',0),
-(95,'2021-03-11 16:56:23','2021-03-11 16:56:23',2,2,'123','123',8),
-(96,'2021-03-11 16:58:45','2021-03-11 16:58:45',2,2,'테스트 게시물4','테스트 게시물 4',9),
-(97,'2021-03-11 16:59:37','2021-03-11 16:59:37',2,2,'테스트 게시물5','테스트 게시물5',8);
+(95,'2021-03-11 16:56:23','2021-03-11 16:56:23',2,2,'123','123',9),
+(96,'2021-03-11 16:58:45','2021-03-11 16:58:45',2,2,'테스트 게시물4','테스트 게시물 4',10),
+(98,'2021-03-12 08:57:35','2021-03-12 08:57:35',2,1,'213132','1232131',16),
+(114,'2021-03-12 14:40:03','2021-03-12 14:40:03',2,2,'232321','1113',1),
+(115,'2021-03-12 14:40:28','2021-03-12 14:40:28',2,2,'566','6555',1);
 
 /*Table structure for table `board` */
 
@@ -145,7 +147,7 @@ CREATE TABLE `board` (
 /*Data for the table `board` */
 
 insert  into `board`(`num`,`regDate`,`updateDate`,`name`,`code`) values 
-(1,'2021-03-08 09:46:05','2021-03-08 09:46:05','공지사항','notice'),
+(1,'2021-03-08 09:46:05','2021-03-08 09:46:05','공지사항','normal'),
 (2,'2021-03-08 09:46:24','2021-03-08 09:46:24','포토갤러리','photo');
 
 /*Table structure for table `genFile` */
@@ -171,13 +173,13 @@ CREATE TABLE `genFile` (
   `fileDir` char(20) NOT NULL,
   PRIMARY KEY (`num`),
   KEY `relId` (`relNum`,`relTypeCode`,`typeCode`,`type2Code`,`fileNo`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `genFile` */
 
 insert  into `genFile`(`num`,`regDate`,`updateDate`,`delDate`,`delStatus`,`relTypeCode`,`relNum`,`originFileName`,`fileExt`,`typeCode`,`type2Code`,`fileSize`,`fileExtTypeCode`,`fileExtType2Code`,`fileNo`,`fileDir`) values 
-(1,'2021-03-11 14:41:11','2021-03-11 14:41:11',NULL,0,'article',0,'정보.txt','txt','common','attachment',443,'etc','etc',1,'2021_03'),
-(2,'2021-03-11 15:13:48','2021-03-11 15:13:48',NULL,0,'article',0,'정보.txt','txt','common','attachment',443,'etc','etc',1,'2021_03'),
+(1,'2021-03-11 14:41:11','2021-03-12 10:42:08',NULL,0,'article',113,'정보.txt','txt','common','attachment',443,'etc','etc',1,'2021_03'),
+(2,'2021-03-11 15:13:48','2021-03-12 10:42:08',NULL,0,'article',113,'정보.txt','txt','common','attachment',443,'etc','etc',1,'2021_03'),
 (3,'2021-03-11 15:16:27','2021-03-11 15:16:27',NULL,0,'article',0,'정보.txt','txt','common','attachment',443,'etc','etc',1,'2021_03'),
 (4,'2021-03-11 15:27:33','2021-03-11 15:27:33',NULL,0,'article',0,'presi01.jpg','jpg','common','attachment',17336,'img','jpg',1,'2021_03'),
 (5,'2021-03-11 16:00:28','2021-03-11 16:00:28',NULL,0,'article',0,'제목 없음.png','png','common','attachment',8261,'img','png',1,'2021_03'),
@@ -188,7 +190,13 @@ insert  into `genFile`(`num`,`regDate`,`updateDate`,`delDate`,`delStatus`,`relTy
 (10,'2021-03-11 16:54:13','2021-03-11 16:54:13',NULL,0,'article',93,'image-1.jpg','jpg','common','attachment',381743,'img','jpg',1,'2021_03'),
 (11,'2021-03-11 16:55:59','2021-03-11 16:55:59',NULL,0,'article',94,'image-1.jpg','jpg','common','attachment',134976,'img','jpg',1,'2021_03'),
 (12,'2021-03-11 16:58:45','2021-03-11 16:58:45',NULL,0,'article',96,'image-1.jpg','jpg','common','attachment',203779,'img','jpg',1,'2021_03'),
-(13,'2021-03-11 16:59:37','2021-03-11 16:59:37',NULL,0,'article',97,'image-1.jpg','jpg','common','attachment',354247,'img','jpg',1,'2021_03');
+(16,'2021-03-12 14:35:00','2021-03-12 14:35:00',NULL,0,'article',0,'image-1.jpg','jpg','common','attachment',354247,'img','jpg',1,'2021_03'),
+(17,'2021-03-12 14:35:02','2021-03-12 14:35:02',NULL,0,'article',0,'image-1.jpg','jpg','common','attachment',354247,'img','jpg',1,'2021_03'),
+(18,'2021-03-12 14:36:01','2021-03-12 14:36:01',NULL,0,'article',0,'image-1.jpg','jpg','common','attachment',354247,'img','jpg',1,'2021_03'),
+(19,'2021-03-12 14:36:57','2021-03-12 14:36:57',NULL,0,'article',0,'image-1.jpg','jpg','common','attachment',354247,'img','jpg',1,'2021_03'),
+(20,'2021-03-12 14:38:08','2021-03-12 14:38:08',NULL,0,'article',0,'image-1.jpg','jpg','common','attachment',354247,'img','jpg',1,'2021_03'),
+(21,'2021-03-12 14:40:03','2021-03-12 14:40:03',NULL,0,'article',114,'image-1.jpg','jpg','common','attachment',354247,'img','jpg',1,'2021_03'),
+(22,'2021-03-12 14:40:28','2021-03-12 14:40:28',NULL,0,'article',115,'banner-1.jpg','jpg','common','attachment',276024,'img','jpg',1,'2021_03');
 
 /*Table structure for table `member` */
 
@@ -208,7 +216,7 @@ CREATE TABLE `member` (
   PRIMARY KEY (`num`),
   UNIQUE KEY `loginId` (`loginId`),
   UNIQUE KEY `authKey` (`authKey`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `member` */
 
@@ -216,7 +224,8 @@ insert  into `member`(`num`,`regDate`,`updateDate`,`name`,`loginId`,`loginPw`,`a
 (1,'2021-03-09 15:27:19','2021-03-09 15:27:19','방혜성','test3','test3','authKey1__80224c2f-80a0-11eb-9d8c-b025aa3ecfdd__0.20430454165144316','baobab612','banggu1997@naver.com','010-8370-0420'),
 (2,'2021-03-09 15:50:34','2021-03-10 16:01:15','방혜성','test1','1b4f0e9851971998e732078544c96b36c3d01cedf7caa332359d6f1d83567014','authKey1__bf467589-80a3-11eb-9d8c-b025aa3ecfdd__0.3230526822833835','baobab612','banggu1997@naver.com','010-8370-0420'),
 (3,'2021-03-09 15:56:58','2021-03-09 15:56:58','방혜성','test2','test2','authKey1__a43b380c-80a4-11eb-9d8c-b025aa3ecfdd__0.5967497831180224','baobab612','banggu1997@naver.com','010-8370-0420'),
-(4,'2021-03-09 16:07:15','2021-03-09 16:07:15','방혜성','test5','test5','authKey1__13f841a4-80a6-11eb-9d8c-b025aa3ecfdd__0.373265601110892','baobab612','banggu1997@naver.com','010-8370-0420');
+(4,'2021-03-09 16:07:15','2021-03-09 16:07:15','방혜성','test5','test5','authKey1__13f841a4-80a6-11eb-9d8c-b025aa3ecfdd__0.373265601110892','baobab612','banggu1997@naver.com','010-8370-0420'),
+(10,'2021-03-12 14:11:05','2021-03-12 14:11:05','방혜성','test6','ed0cb90bdfa4f93981a7d03cff99213a86aa96a6cbcf89ec5e8889871f088727','authKey1__590f6ba3-82f1-11eb-baeb-b025aa3ecfdd__0.6455571545712251','banggu1997','banggu1997@naver.com','01083700420');
 
 /*Table structure for table `reply` */
 

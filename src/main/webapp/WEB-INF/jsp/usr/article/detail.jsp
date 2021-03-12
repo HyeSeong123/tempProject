@@ -22,6 +22,10 @@
 				<tbody>
 					<tr>
 						<td class="view_tit">${article.title}</td>
+						<td><a href="modify?num=${article.num}">글 수정</a></td>
+						
+						<td><a href="doDelete?num=${article.num}">글 삭제</a></td>
+						
 						<td>${article.regDate}</td>
 					</tr>
 					<tr>

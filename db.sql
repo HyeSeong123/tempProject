@@ -129,3 +129,19 @@ INSERT INTO reply
     relTypeCode = 'article',
     `body` = '댓글5'
     
+  
+SELECT A.num,
+		A.title,
+		DATE_FORMAT(A.updateDate, '%Y-%m-%d') AS updateDate,
+		DATE_FORMAT(A.regDate, '%Y-%m-%d') AS regDate,
+		A.memberNum,
+		A.body,
+		A.boardNum,
+		A.view,
+		M.name AS extra__writer
+		
+		FROM article AS A
+		LEFT JOIN `member` AS M
+		ON A.memberNum = M.num
+
+        WHERE A.num = 45

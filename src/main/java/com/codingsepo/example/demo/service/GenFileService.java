@@ -138,4 +138,19 @@ public class GenFileService {
 		
 		return new ResultData("S-1" , "파일 업로드 성공", "filesResultData", filesResultData, "genFileIdsStr", genFileIdsStr);
 	}
+
+	public void deleteFiles(String relTypeCode, int relNum) {
+		List<GenFile> genFiles = genFileDao.getGenFiles(relTypeCode, relNum);
+
+		for ( GenFile genFile : genFiles ) {
+			deleteFile(genFile);
+		}
+	}
+
+	private void deleteFile(GenFile genFile) {
+		String filePath = genFile.getFilePath(genFileDirPath);
+		Util.delteFile(filePath);
+
+		genFileDao.deleteFile(genFile.getNum());
+	}
 }

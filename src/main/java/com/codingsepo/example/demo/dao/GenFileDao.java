@@ -1,5 +1,6 @@
 package com.codingsepo.example.demo.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -17,4 +18,10 @@ public interface GenFileDao {
 
 	void changeRelId(@Param("num")int num,@Param("relNum") int relNum);
 
+	void deleteFiles(@Param("relTypeCode") String relTypeCode,@Param("relNum") int relNum);
+
+	List<GenFile> getGenFiles(@Param("relTypeCode") String relTypeCode,@Param("relNum") int relNum);
+	
+	void deleteFile(@Param("num") int num);
+	
 }

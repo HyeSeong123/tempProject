@@ -506,89 +506,24 @@
 							data-spaceBetween="30" data-slidesPerView="responsive"
 							data-add-slides="3" data-lg-slides="3" data-md-slides="3"
 							data-sm-slides="2" data-xs-slides="1">
+
 							<div class="swiper-wrapper ">
-								<div class="swiper-slide ">
-									<article class="post format-image ">
-										<div class="content-wrapper">
-											<p class="post-date">2020-12-11</p>
-											<h1 class="post-title">
-												<a href="#">예술인 고용보험 현장 적용을 위한 안내서 '문화예술용역 운용지침서' 홍보</a>
-											</h1>
-											<p>예술인 고용보험 현장 적용을 위한 안내서 '문화예술용역 운용지침서' 홍보</p>
-											<a href="#" class="aheto-btn aheto-btn--underline">자세히 보기</a>
-										</div>
-									</article>
-								</div>
-								<div class="swiper-slide ">
-									<article class="post format-image ">
 
-										<div class="content-wrapper">
-											<p class="post-date">2020-12-09</p>
-											<h1 class="post-title">
-												<a href="#">2021「대전예술지」디자인편집 인쇄물 제작 용역 공고</a>
-											</h1>
-											<p>Ⅰ. 과업 개요 1. 사업개요 : 2021「대전예술지」디자인편집 인쇄물 제작 용역 (이하
-												󰡐예술지 제작󰡑이라 함) 2. 사업목적 「대전예술지」를 고품질로 매월 발간배포 문화예술향유 시민행복
-												체감도 제고</p>
-											<a href="#" class="aheto-btn aheto-btn--underline">자세히 보기</a>
-										</div>
-									</article>
-								</div>
-								<div class="swiper-slide ">
-									<article class="post format-image ">
-
-										<div class="content-wrapper">
-											<p class="post-date">2020-09-03</p>
-											<h1 class="post-title">
-												<a href="#">대전최고의 무용축제 대전시민무용축전이 온라인으로</a>
-											</h1>
-											<p>대전최고의 무용축제 전시민무용축전이 온라인으로 대전무용협회 (회장 김영예)는 코로나19 감염
-												확산의 우려로 미루어 왔던 제 13회 대전시민무용축전을 온라인 공연으로 진행하게 되었다.</p>
-											<a href="#" class="aheto-btn aheto-btn--underline">자세히 보기</a>
-										</div>
-									</article>
-								</div>
-								<div class="swiper-slide ">
-									<article class="post format-image ">
-										<div class="content-wrapper">
-											<p class="post-date">2020-12-11</p>
-											<h1 class="post-title">
-												<a href="#">예술인 고용보험 현장 적용을 위한 안내서 '문화예술용역 운용지침서' 홍보</a>
-											</h1>
-											<p>예술인 고용보험 현장 적용을 위한 안내서 '문화예술용역 운용지침서' 홍보</p>
-											<a href="#" class="aheto-btn aheto-btn--underline">자세히 보기</a>
-										</div>
-									</article>
-								</div>
-								<div class="swiper-slide ">
-									<article class="post format-image ">
-
-										<div class="content-wrapper">
-											<p class="post-date">2020-12-09</p>
-											<h1 class="post-title">
-												<a href="#">2021「대전예술지」디자인편집 인쇄물 제작 용역 공고</a>
-											</h1>
-											<p>Ⅰ. 과업 개요 1. 사업개요 : 2021「대전예술지」디자인편집 인쇄물 제작 용역 (이하
-												󰡐예술지 제작󰡑이라 함) 2. 사업목적 「대전예술지」를 고품질로 매월 발간배포 문화예술향유 시민행복
-												체감도 제고 작</p>
-											<a href="#" class="aheto-btn aheto-btn--underline">자세히 보기</a>
-										</div>
-									</article>
-								</div>
-								<div class="swiper-slide ">
-									<article class="post format-image ">
-
-										<div class="content-wrapper">
-											<p class="post-date">2020-09-03</p>
-											<h1 class="post-title">
-												<a href="#">대전최고의 무용축제 대전시민무용축전이 온라인으로</a>
-											</h1>
-											<p>대전최고의 무용축제 전시민무용축전이 온라인으로 대전무용협회 (회장 김영예)는 코로나19 감염
-												확산의 우려로 미루어 왔던 제 13회 대전시민무용축전을 온라인 공연으로 진행하게 되었다.</p>
-											<a href="#" class="aheto-btn aheto-btn--underline">자세히 보기</a>
-										</div>
-									</article>
-								</div>
+								<c:forEach items="${articles}" var="article" begin="1" end="6">
+									<div class="swiper-slide ">
+										<article class="post format-image ">
+											<div class="content-wrapper">
+												<p class="post-date">${article.regDate}</p>
+												<h1 class="post-title">
+													<a href="#">${article.title}</a>
+												</h1>
+												<p>${article.body}</p>
+												<a href="../article/detail?num=${article.num}"
+													class="aheto-btn aheto-btn--underline">자세히 보기</a>
+											</div>
+										</article>
+									</div>
+								</c:forEach>
 							</div>
 						</div>
 						<div class="swiper-pagination "></div>

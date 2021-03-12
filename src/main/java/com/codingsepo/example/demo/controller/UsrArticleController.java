@@ -37,6 +37,18 @@ public class UsrArticleController {
 	@Autowired
 	private GenFileService genFileService;
 
+	@RequestMapping("/usr/article/modify")
+
+	public String showModify(int num, Model model) {
+		
+		Article article = articleService.getArticle(num);
+		
+		model.addAttribute(article);
+		
+		return "usr/article/modify";
+		
+	}
+	
 	@RequestMapping("/usr/article/doModify")
 	@ResponseBody
 	public ResultData doModify(Integer num, String title, String body, HttpSession session) {
@@ -137,9 +149,6 @@ public class UsrArticleController {
 		param.put("memberNum", loginedMemberNum);
 
 		ResultData addArticleRd = articleService.addArticle(param);
-
-		System.out.println("addParam=" + param);
-		System.out.println("addArticleRd=" + addArticleRd);
 
 		int newArticleNum = (int) addArticleRd.getBody().get("num");
 
