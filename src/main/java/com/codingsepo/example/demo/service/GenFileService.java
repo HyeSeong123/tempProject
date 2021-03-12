@@ -136,6 +136,6 @@ public class GenFileService {
 		
 		String genFileIdsStr = Joiner.on(",").join(genFileIds);
 		
-		return new ResultData("S-1" , "파일 업로드 성공", "filesResultData", filesResultData, "genFileIdsStr");
+		return new ResultData("S-1" , "파일 업로드 성공", "filesResultData", filesResultData, "genFileIdsStr", genFileIdsStr);
 	}
 }

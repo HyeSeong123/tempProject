@@ -63,12 +63,11 @@
 			}
 			
 			const startSubmitForm = function(data){
-				let genFileIdsStr = '';
-				
 				if (data && data.body && data.body.genFileIdsStr){
-					genFileIdsStr = data.body.genFileIdsStr;
+					form.genFileIdsStr.value = data.body.genFileIdsStr;
 				}
-				form.genFileIdsStr.value = genFileIdsStr;
+				
+				form.genFileIdsStr.value = data.body.genFileIdsStr;
 				
 				for(let inputNo = 1; inputNo <= ArticleAdd__fileInputMaxCount; inputNo++){
 					const input = form["file__article__0__common__attachment__" + inputNo];
